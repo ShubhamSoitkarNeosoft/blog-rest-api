@@ -1,3 +1,4 @@
+from async_timeout import timeout
 from flask import request
 from flask.views import MethodView
 from flask_smorest import Blueprint,abort
@@ -6,8 +7,10 @@ from flask_jwt_extended import jwt_required
 from db import db
 import uuid
 from models import PostModel, post
-
+from cache import cache
 from schemas import PostSchema, PostUpdateSchema
+from pagination import pagination
+from flask import current_app as app
 
 blp = Blueprint("posts",__name__, description = "Operations on posts")
 
@@ -15,9 +18,12 @@ blp = Blueprint("posts",__name__, description = "Operations on posts")
 @blp.route("/post")
 class PostList(MethodView):
 
+  
     @jwt_required()
+    @cache.cached(timeout=200, query_string=True)
     @blp.response(200,PostSchema(many=True))
     def get(self):
+        # return pagination.paginate(PostModel.query.all(),PostSchema)
         return PostModel.query.all()
 
     @jwt_required()
@@ -28,6 +34,7 @@ class PostList(MethodView):
         try:
             db.session.add(post)
             db.session.commit()
+            print(db)
         except SQLAlchemyError:
             abort(500, message="An error occured while inserting the item")
         return post
@@ -39,6 +46,8 @@ class Post(MethodView):
     @jwt_required()
     @blp.response(200,PostSchema) 
     def get(self,post_id):
+        app.logger.info('Info level log')
+        app.logger.warning('Warning level log')
         post = PostModel.query.get_or_404(post_id)
         return post
 

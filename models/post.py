@@ -6,7 +6,7 @@ class PostModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), unique=True, nullable=False)
-    body = db.Column(db.String(80), nullable=False)
+    body = db.Column(db.String(100), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"),unique=False, nullable=False)

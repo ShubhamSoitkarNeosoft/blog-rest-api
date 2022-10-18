@@ -5,3 +5,9 @@ sqlalchemy
 flask-sqlalchemy
 flask-jwt-extended
 passlib
+Flask-Migrate==3.1.0
+Flask-Caching
+# redis
+#requests
+# pip install flask-rest-paginate   https://pypi.org/project/flask-rest-paginate/
+flask-rest-paginate

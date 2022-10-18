@@ -7,6 +7,7 @@ class PlainPostSchema(Schema):
     body = fields.Str(required=True)
     created_at = fields.Str(dump_only=True)
     updated_at = fields.Str(dump_only=True)
+   
 
 class PlainCommentSchema(Schema):
     id = fields.Int(dump_only = True)
