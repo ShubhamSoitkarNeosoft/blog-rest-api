@@ -1,4 +1,4 @@
-from async_timeout import timeout
+
 from flask import request
 from flask.views import MethodView
 from flask_smorest import Blueprint,abort

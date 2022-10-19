@@ -11,3 +11,5 @@ Flask-Caching
 #requests
 # pip install flask-rest-paginate   https://pypi.org/project/flask-rest-paginate/
 flask-rest-paginate
+celery
+redis
